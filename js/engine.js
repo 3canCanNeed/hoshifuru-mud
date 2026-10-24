@@ -419,6 +419,14 @@ window.Game = (function () {
 
   function exec(line) {
     out = [];
+    /* 「读档」必须排在「还没开始」那道闸前面：
+       刷新页面以后 S 是空的，可存档就躺在 localStorage 里。 */
+    const first = String(line || '').trim();
+    if (/^(读档|load)$/i.test(first)) {
+      if (load()) { emit('sys', '已读档。'); enterRoom(S.room, false); }
+      else emit('sys', '没有找到存档。');
+      return out;
+    }
     if (!S) { emit('sys', '（还没有开始。输入「重来」或刷新页面。）'); return out; }
     if (S.ended) {
       const cmd = (line || '').trim();
