@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>星降町的放学后 · 潮见学园天象仪社</title>
+<meta name="description" content="一个日式青春恋爱文字冒险：转学来到海边小镇的高二学生，加入濒临废部的天象仪社，要在星见祭之前，让一台 1962 年的机器转起来。">
+<meta name="theme-color" content="#0b1020">
+<meta property="og:type" content="website">
+<meta property="og:title" content="星降町的放学后">
+<meta property="og:description" content="这个镇子只有三百盏灯，晚上会亮的不到一百盏。而我在这里，遇见了四个人。">
+<meta property="og:image" content="https://3cancanneed.github.io/hoshifuru-mud/screenshots/play.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dusk">
+
+<div id="app">
+
+  <!-- ══════ 顶栏 ══════ -->
+  <header id="topbar">
+    <div class="brand">
+      <span class="brand-mark">星</span>
+      <span class="brand-text">
+        <b>星 降 町 的 放 学 后</b>
+        <i>潮见学园 · 天象仪社</i>
+      </span>
+    </div>
+    <div class="chips">
+      <span class="chip" id="chipDay">第 1 天</span>
+      <span class="chip" id="chipTime">上午</span>
+      <span class="chip" id="chipRoom">校门</span>
+    </div>
+    <div class="tools">
+      <button class="tbtn" id="btnHelp" title="指令说明">帮助</button>
+      <button class="tbtn" id="btnBond" title="好感一览">羁绊</button>
+      <button class="tbtn" id="btnTheme" title="切换配色">配色</button>
+      <button class="tbtn" id="btnSide" title="切换侧栏" aria-hidden="true">☰</button>
+    </div>
+  </header>
+
+  <!-- ══════ 主体 ══════ -->
+  <main id="stage">
+    <section id="logWrap">
+      <div id="log" role="log" aria-live="polite"></div>
+      <div id="exits-bar"></div>
+      <div id="promptWrap">
+        <span id="promptGlyph">›</span>
+        <input id="cmd" type="text" autocomplete="off" autocorrect="off" spellcheck="false"
+               placeholder="你想做什么……（输入 help 看看）" aria-label="命令输入">
+      </div>
+    </section>
+
+    <!-- ══════ 侧栏 ══════ -->
+    <aside id="side">
+      <div class="panel">
+        <div class="panel-head"><span>日 程</span><span class="panel-aside" id="dayAside">第 1 天</span></div>
+        <div id="clockRow">
+          <span class="time-now" id="timeNow">上午</span>
+          <span class="ap-pips" id="apPips"></span>
+        </div>
+        <div class="quest-line" id="questLine">放学后去旧校舍三楼看看</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>羁 绊</span><span class="panel-aside" id="bondAside">认</span></div>
+        <ul class="bond-list" id="bondList"></ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>社 员</span><span class="panel-aside" id="memberAside">1</span></div>
+        <ul class="member-list" id="memberList"></ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>社 务</span><span class="panel-aside">天象仪社</span></div>
+        <ul class="club-list" id="clubList"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ══════ 底栏 ══════ -->
+  <footer id="statusbar">
+    <span id="sbHint">点任意处开始 · 方向键可翻历史 · 输入 help</span>
+    <div class="sb-right">
+      <button class="tbtn small" id="btnSave">存档</button>
+      <button class="tbtn small" id="btnLoad">读档</button>
+      <button class="tbtn small" id="btnRestart">重来</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════ 开场 ══════ -->
+<div id="curtain">
+  <div class="curtain-inner">
+    <p class="curtain-kicker">潮 见 学 园 · 天 象 仪 社</p>
+    <h1>星降町的放学后</h1>
+    <p class="curtain-sub">四月 · 海雾季</p>
+    <p class="curtain-flavor">
+      这个镇子只有三百盏灯，晚上会亮的不到一百盏。<br>
+      而它有一台 1962 年的天象仪，和一个快要废部的社团。
+    </p>
+    <p class="curtain-flavor dim">
+      「这台机器坏了七年。」<br>
+      「那你为什么不扔掉它。」<br>
+      「因为我在等一个人来修。」
+    </p>
+    <button class="big-btn" id="btnStart">推 开 门</button>
+    <button class="big-btn ghost" id="btnResume" hidden>继 续 上 次</button>
+    <p class="curtain-tip">建议全屏 · 每次行动消耗一点行动力 · 输入 help</p>
+  </div>
+</div>
+
+<!-- ══════ 结局层 ══════ -->
+<div id="veil">
+  <div class="veil-inner">
+    <h2 id="veilTitle"></h2>
+    <p class="veil-sub" id="veilSub"></p>
+    <div class="veil-body" id="veilBody"></div>
+    <p class="veil-quote" id="veilQuote"></p>
+    <button class="big-btn" id="btnAgain">再 来 一 次</button>
+  </div>
+</div>
+
+<script src="js/data/world.js"></script>
+<script src="js/data/rooms.js"></script>
+<script src="js/data/cast.js"></script>
+<script src="js/data/story.js"></script>
+<script src="js/data/events.js"></script>
+<script src="js/data/tale.js"></script>
+  <script src="js/data/extra.js"></script>
+  <script src="js/data/extra2.js"></script>
+  <script src="js/data/extra3.js"></script>
+  <script src="js/data/semester2.js"></script>
+  <script src="js/data/extra4.js"></script>
+  <script src="js/data/extra5.js"></script>
+  <script src="js/data/tale2.js"></script>
+  <script src="js/data/after.js"></script>
+  <script src="js/data/extra6.js"></script>
+  <script src="js/data/tale3.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
